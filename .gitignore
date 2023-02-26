@@ -1,0 +1,7 @@
+config.ini
+config.yaml
+build/*
+*.log
+telego
+telego.exe
+dist/

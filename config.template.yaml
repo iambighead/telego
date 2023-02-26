@@ -1,0 +1,11 @@
+general:
+  
+sender:
+  - name: heartbeat
+    teleconfig: tele-heartbeat
+    folder: C:\Users\Downloads\telego-hb
+
+teleconfig:
+  - name: tele-heartbeat
+    token: abcd
+    chatid: 1234567
