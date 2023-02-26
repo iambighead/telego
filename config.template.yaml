@@ -1,11 +1,9 @@
-general:
-  
-sender:
+senders:
   - name: heartbeat
-    teleconfig: tele-heartbeat
-    folder: C:\Users\Downloads\telego-hb
+    tele: tele-heartbeat
+    folder: /home/ledmirage/Downloads/wspace/telego/hb
 
-teleconfig:
+teleconfigs:
   - name: tele-heartbeat
-    token: abcd
-    chatid: 1234567
+    token: 123456789:ABCdefg-aaaaaaaaaaaaaaa_bbbbbbbbbbbb
+    chatid: -123456789

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -25,6 +26,9 @@ type MasterConfig struct {
 }
 
 func validateConfig(cfg MasterConfig) error {
+	if len(cfg.Senders) == 0 || len(cfg.TeleConfigs) == 0 {
+		return errors.New("Sender or Tele config not defined. Please check")
+	}
 	return nil
 }
 
