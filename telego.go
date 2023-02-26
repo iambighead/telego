@@ -86,13 +86,16 @@ func monitorFolder(folder string, tele config.TeleConfig) {
 			{
 				err := processFile(f, tele.Token, tele.ChatId)
 				if err != nil {
-					main_logger.Error(err.Error())
+					main_logger.Error(fmt.Sprintf("failed to processe %s: %s", f, err.Error()))
+				} else {
+					main_logger.Info(fmt.Sprintf("processed %s", f))
 				}
+
 			}
 			{
 				err := cleanupFile(f)
 				if err != nil {
-					main_logger.Error(err.Error())
+					main_logger.Error(fmt.Sprintf("failed to remove %s: %s", f, err.Error()))
 				}
 			}
 		}
