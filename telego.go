@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/iambighead/goutils/logger"
@@ -12,7 +13,7 @@ import (
 	tu "github.com/mymmrac/telego/telegoutil"
 )
 
-const VERSION = "v0.0.1"
+const VERSION = "v0.0.3"
 
 // --------------------------------
 
@@ -25,12 +26,20 @@ func init() {
 	logger.Init("telego.log", "TELEGO_LOG_LEVEL")
 	main_logger = logger.NewLogger("main")
 
-	var err error
-	master_config, err = config.ReadConfig("config.yaml")
+	ex, err := os.Executable()
 	if err != nil {
-		main_logger.Error(fmt.Sprintf("failed to read config: %v", err))
+		main_logger.Error("unable to get executable path")
+		os.Exit(1)
 	}
 
+	{
+		var err error
+		config_path := filepath.Join(filepath.Dir(ex), "config.yaml")
+		master_config, err = config.ReadConfig(config_path)
+		if err != nil {
+			main_logger.Error(fmt.Sprintf("failed to read config: %v", err))
+		}
+	}
 }
 
 func processFile(file string, token string, chat_id int64) error {
@@ -114,6 +123,7 @@ func main() {
 		go monitorFolder(sender.Folder, *sender.TeleConfig)
 	}
 
-	// block main thread
-	<-make(chan struct{})
+	for {
+		time.Sleep(60 * time.Duration(time.Second))
+	}
 }
